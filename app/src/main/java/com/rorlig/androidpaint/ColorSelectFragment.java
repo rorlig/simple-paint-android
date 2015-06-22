@@ -24,18 +24,18 @@ import butterknife.OnClick;
  *@author gaurav gupta
  * Selects the color for the paint...
  */
-public class ColorSelectFragment extends DialogFragment {
+public class ColorSelectFragment extends DialogFragment implements ColorPicker.OnColorChangedListener {
 
     private String TAG = "ColorSelectFragment";
 
     @InjectView(R.id.picker)
     ColorPicker colorPicker;
 
-    @InjectView(R.id.svbar)
-    SVBar svBar;
-
-    @InjectView(R.id.opacitybar)
-    OpacityBar opacityBar;
+//    @InjectView(R.id.svbar)
+//    SVBar svBar;
+//
+//    @InjectView(R.id.opacitybar)
+//    OpacityBar opacityBar;
 
     @InjectView(R.id.button1)
     Button button;
@@ -52,6 +52,7 @@ public class ColorSelectFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        colorPicker.setOnColorChangedListener(this);
     }
 
     @Override
@@ -68,9 +69,13 @@ public class ColorSelectFragment extends DialogFragment {
     @OnClick(R.id.button1)
     public void onButtonClick() {
         Log.d(TAG, "color " + colorPicker.getColor());
-        textView.setTextColor(colorPicker.getColor());
-        colorPicker.setOldCenterColor(colorPicker.getColor());
         bus.post(new ColorChangeEvent(colorPicker.getColor()));
         dismiss();
+    }
+
+    @Override
+    public void onColorChanged(int i) {
+        textView.setTextColor(colorPicker.getColor());
+
     }
 }

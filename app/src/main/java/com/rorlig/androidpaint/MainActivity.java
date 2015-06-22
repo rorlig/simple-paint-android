@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.squareup.otto.Bus;
 
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (id==R.id.action_clear) {
             bus.post(new ClearEvent());
+        }
+
+        if (id==R.id.action_save) {
+            Toast.makeText(this, "Todo", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
